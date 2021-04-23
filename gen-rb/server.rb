@@ -68,9 +68,23 @@ class CalculatorHandler
     return result
   end
 
-  def reduce(v1)
-    result = v1.map {|x| x.reduce(:+)}
+  def reduceConSuma(v1)
+    result = v1.reduce(:+)
     print "reduccion con suma(#{v1.inspect}) = #{result}\n"
+    return result
+  end
+
+  def distanciaManhattan(c1, c2)
+    result = (c1.x - c2.x).abs + (c1.y - c2.y).abs
+    print "DistanciaManhattan(#{c1.inspect}, #{c2.inspect}) = #{result}\n"
+    return result
+  end
+
+  def distanciaEuclides(c1, c2)
+    deltaX = c1.x - c2.x
+    deltaY = c1.y - c2.y
+    result = Math.sqrt(deltaX*deltaX + deltaY*deltaY)
+    print "distanciaEuclides(#{c1.inspect}, #{c2.inspect}) = #{result}\n"
     return result
   end
 

@@ -175,19 +175,19 @@ module Calculadora
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'divideVectores failed: unknown result')
     end
 
-    def reduce(v1)
-      send_reduce(v1)
-      return recv_reduce()
+    def reduceConSuma(v1)
+      send_reduceConSuma(v1)
+      return recv_reduceConSuma()
     end
 
-    def send_reduce(v1)
-      send_message('reduce', Reduce_args, :v1 => v1)
+    def send_reduceConSuma(v1)
+      send_message('reduceConSuma', ReduceConSuma_args, :v1 => v1)
     end
 
-    def recv_reduce()
-      result = receive_message(Reduce_result)
+    def recv_reduceConSuma()
+      result = receive_message(ReduceConSuma_result)
       return result.success unless result.success.nil?
-      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'reduce failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'reduceConSuma failed: unknown result')
     end
 
   end
@@ -272,11 +272,11 @@ module Calculadora
       write_result(result, oprot, 'divideVectores', seqid)
     end
 
-    def process_reduce(seqid, iprot, oprot)
-      args = read_args(iprot, Reduce_args)
-      result = Reduce_result.new()
-      result.success = @handler.reduce(args.v1)
-      write_result(result, oprot, 'reduce', seqid)
+    def process_reduceConSuma(seqid, iprot, oprot)
+      args = read_args(iprot, ReduceConSuma_args)
+      result = ReduceConSuma_result.new()
+      result.success = @handler.reduceConSuma(args.v1)
+      write_result(result, oprot, 'reduceConSuma', seqid)
     end
 
   end
@@ -653,7 +653,7 @@ module Calculadora
     ::Thrift::Struct.generate_accessors self
   end
 
-  class Reduce_args
+  class ReduceConSuma_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
     V1 = 1
 
@@ -669,7 +669,7 @@ module Calculadora
     ::Thrift::Struct.generate_accessors self
   end
 
-  class Reduce_result
+  class ReduceConSuma_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 

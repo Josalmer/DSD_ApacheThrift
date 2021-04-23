@@ -112,7 +112,7 @@ class Iface(object):
         """
         pass
 
-    def reduce(self, v1):
+    def reduceConSuma(self, v1):
         """
         Parameters:
          - v1
@@ -492,24 +492,24 @@ class Client(Iface):
             return result.success
         raise TApplicationException(TApplicationException.MISSING_RESULT, "divideVectores failed: unknown result")
 
-    def reduce(self, v1):
+    def reduceConSuma(self, v1):
         """
         Parameters:
          - v1
 
         """
-        self.send_reduce(v1)
-        return self.recv_reduce()
+        self.send_reduceConSuma(v1)
+        return self.recv_reduceConSuma()
 
-    def send_reduce(self, v1):
-        self._oprot.writeMessageBegin('reduce', TMessageType.CALL, self._seqid)
-        args = reduce_args()
+    def send_reduceConSuma(self, v1):
+        self._oprot.writeMessageBegin('reduceConSuma', TMessageType.CALL, self._seqid)
+        args = reduceConSuma_args()
         args.v1 = v1
         args.write(self._oprot)
         self._oprot.writeMessageEnd()
         self._oprot.trans.flush()
 
-    def recv_reduce(self):
+    def recv_reduceConSuma(self):
         iprot = self._iprot
         (fname, mtype, rseqid) = iprot.readMessageBegin()
         if mtype == TMessageType.EXCEPTION:
@@ -517,12 +517,12 @@ class Client(Iface):
             x.read(iprot)
             iprot.readMessageEnd()
             raise x
-        result = reduce_result()
+        result = reduceConSuma_result()
         result.read(iprot)
         iprot.readMessageEnd()
         if result.success is not None:
             return result.success
-        raise TApplicationException(TApplicationException.MISSING_RESULT, "reduce failed: unknown result")
+        raise TApplicationException(TApplicationException.MISSING_RESULT, "reduceConSuma failed: unknown result")
 
 
 class Processor(Iface, TProcessor):
@@ -540,7 +540,7 @@ class Processor(Iface, TProcessor):
         self._processMap["restaVectores"] = Processor.process_restaVectores
         self._processMap["multiplicaVectores"] = Processor.process_multiplicaVectores
         self._processMap["divideVectores"] = Processor.process_divideVectores
-        self._processMap["reduce"] = Processor.process_reduce
+        self._processMap["reduceConSuma"] = Processor.process_reduceConSuma
         self._on_message_begin = None
 
     def on_message_begin(self, func):
@@ -816,13 +816,13 @@ class Processor(Iface, TProcessor):
         oprot.writeMessageEnd()
         oprot.trans.flush()
 
-    def process_reduce(self, seqid, iprot, oprot):
-        args = reduce_args()
+    def process_reduceConSuma(self, seqid, iprot, oprot):
+        args = reduceConSuma_args()
         args.read(iprot)
         iprot.readMessageEnd()
-        result = reduce_result()
+        result = reduceConSuma_result()
         try:
-            result.success = self._handler.reduce(args.v1)
+            result.success = self._handler.reduceConSuma(args.v1)
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
@@ -834,7 +834,7 @@ class Processor(Iface, TProcessor):
             logging.exception('Unexpected exception in handler')
             msg_type = TMessageType.EXCEPTION
             result = TApplicationException(TApplicationException.INTERNAL_ERROR, 'Internal error')
-        oprot.writeMessageBegin("reduce", msg_type, seqid)
+        oprot.writeMessageBegin("reduceConSuma", msg_type, seqid)
         result.write(oprot)
         oprot.writeMessageEnd()
         oprot.trans.flush()
@@ -2378,7 +2378,7 @@ divideVectores_result.thrift_spec = (
 )
 
 
-class reduce_args(object):
+class reduceConSuma_args(object):
     """
     Attributes:
      - v1
@@ -2417,7 +2417,7 @@ class reduce_args(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('reduce_args')
+        oprot.writeStructBegin('reduceConSuma_args')
         if self.v1 is not None:
             oprot.writeFieldBegin('v1', TType.LIST, 1)
             oprot.writeListBegin(TType.DOUBLE, len(self.v1))
@@ -2441,14 +2441,14 @@ class reduce_args(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(reduce_args)
-reduce_args.thrift_spec = (
+all_structs.append(reduceConSuma_args)
+reduceConSuma_args.thrift_spec = (
     None,  # 0
     (1, TType.LIST, 'v1', (TType.DOUBLE, None, False), None, ),  # 1
 )
 
 
-class reduce_result(object):
+class reduceConSuma_result(object):
     """
     Attributes:
      - success
@@ -2482,7 +2482,7 @@ class reduce_result(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('reduce_result')
+        oprot.writeStructBegin('reduceConSuma_result')
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.DOUBLE, 0)
             oprot.writeDouble(self.success)
@@ -2503,8 +2503,8 @@ class reduce_result(object):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(reduce_result)
-reduce_result.thrift_spec = (
+all_structs.append(reduceConSuma_result)
+reduceConSuma_result.thrift_spec = (
     (0, TType.DOUBLE, 'success', None, None, ),  # 0
 )
 fix_spec(all_structs)

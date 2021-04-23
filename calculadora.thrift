@@ -15,7 +15,7 @@ service Calculadora{
    list<double> restaVectores(1:list<double> v1, 2:list<double> v2),
    list<double> multiplicaVectores(1:list<double> v1, 2:list<double> v2),
    list<double> divideVectores(1:list<double> v1, 2:list<double> v2),
-   double reduce(1:list<double> v1);
+   double reduceConSuma(1:list<double> v1);
 }
 
 /*

@@ -35,7 +35,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('   restaVectores( v1,  v2)')
     print('   multiplicaVectores( v1,  v2)')
     print('   divideVectores( v1,  v2)')
-    print('  double reduce( v1)')
+    print('  double reduceConSuma( v1)')
     print('')
     sys.exit(0)
 
@@ -181,11 +181,11 @@ elif cmd == 'divideVectores':
         sys.exit(1)
     pp.pprint(client.divideVectores(eval(args[0]), eval(args[1]),))
 
-elif cmd == 'reduce':
+elif cmd == 'reduceConSuma':
     if len(args) != 1:
-        print('reduce requires 1 args')
+        print('reduceConSuma requires 1 args')
         sys.exit(1)
-    pp.pprint(client.reduce(eval(args[0]),))
+    pp.pprint(client.reduceConSuma(eval(args[0]),))
 
 else:
     print('Unrecognized method %s' % cmd)
