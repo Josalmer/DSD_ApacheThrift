@@ -25,8 +25,17 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('')
     print('Functions:')
     print('  void ping()')
-    print('  i32 suma(i32 num1, i32 num2)')
-    print('  i32 resta(i32 num1, i32 num2)')
+    print('  double suma(double num1, double num2)')
+    print('  double resta(double num1, double num2)')
+    print('  double multiplica(double num1, double num2)')
+    print('  double divide(double num1, double num2)')
+    print('  double distanciaManhattan(Coordenada c1, Coordenada c2)')
+    print('  double distanciaEuclides(Coordenada c1, Coordenada c2)')
+    print('   sumaVectores( v1,  v2)')
+    print('   restaVectores( v1,  v2)')
+    print('   multiplicaVectores( v1,  v2)')
+    print('   divideVectores( v1,  v2)')
+    print('  double reduce( v1)')
     print('')
     sys.exit(0)
 
@@ -123,6 +132,60 @@ elif cmd == 'resta':
         print('resta requires 2 args')
         sys.exit(1)
     pp.pprint(client.resta(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'multiplica':
+    if len(args) != 2:
+        print('multiplica requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.multiplica(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'divide':
+    if len(args) != 2:
+        print('divide requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.divide(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'distanciaManhattan':
+    if len(args) != 2:
+        print('distanciaManhattan requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.distanciaManhattan(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'distanciaEuclides':
+    if len(args) != 2:
+        print('distanciaEuclides requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.distanciaEuclides(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'sumaVectores':
+    if len(args) != 2:
+        print('sumaVectores requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.sumaVectores(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'restaVectores':
+    if len(args) != 2:
+        print('restaVectores requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.restaVectores(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'multiplicaVectores':
+    if len(args) != 2:
+        print('multiplicaVectores requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.multiplicaVectores(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'divideVectores':
+    if len(args) != 2:
+        print('divideVectores requires 2 args')
+        sys.exit(1)
+    pp.pprint(client.divideVectores(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'reduce':
+    if len(args) != 1:
+        print('reduce requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.reduce(eval(args[0]),))
 
 else:
     print('Unrecognized method %s' % cmd)
